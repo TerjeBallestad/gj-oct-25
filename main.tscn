@@ -1,24 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=6 format=3 uid="uid://dl10w43np13e0"]
 
-[ext_resource type="Texture2D" uid="uid://diiqqqjp12mp7" path="res://sprites/square-white.png" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://ftfe7rpbpidr" path="res://sprites/circle-white.png" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://big25imuq7qc5" path="res://gnome.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://d2ksy2jhnvqkp" path="res://craftable_block.tscn" id="5_lquwl"]
 
-[node name="main" type="Node2D"]
+[sub_resource type="Curve2D" id="Curve2D_272bh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1153, 2, 0, 0, 0, 0, 1153, 649, 0, 0, 0, 0, 1, 651, 0, 0, 0, 0, 0, 1)
+}
+point_count = 5
 
-[node name="SquareWhite" type="Sprite2D" parent="."]
-modulate = Color(0.575995, 0.5165384, 0.35056165, 1)
-texture_filter = 1
-position = Vector2(378, 327)
-scale = Vector2(9.03125, 7.4687486)
-texture = ExtResource("1_ig7tw")
-
-[node name="CircleWhite" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(599.5, 532.5)
-scale = Vector2(8.9375, 8.9375)
-texture = ExtResource("2_0xm2m")
+[node name="main" type="Node"]
+script = ExtResource("1_7mycd")
+gnome_scene = ExtResource("4_1bvp3")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -38,5 +33,23 @@ text = "762 points"
 [node name="player" parent="." instance=ExtResource("3_h2yge")]
 position = Vector2(348, 512)
 
-[node name="Gnome" parent="." instance=ExtResource("4_1bvp3")]
-position = Vector2(472, 576)
+[node name="CraftableBlock" parent="." instance=ExtResource("5_lquwl")]
+position = Vector2(585, 392)
+scale = Vector2(9.960003, 4.2000046)
+
+[node name="GnomeSpawnTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="SpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_272bh")
+
+[node name="SpawnLocation" type="PathFollow2D" parent="SpawnPath"]
+position = Vector2(0, 1)
+rotation = 0.0008673025
+
+[connection signal="hit" from="player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="GnomeSpawnTimer" to="." method="_on_gnome_spawn_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

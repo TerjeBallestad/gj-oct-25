@@ -1,15 +1,29 @@
 extends RigidBody2D
 
+signal construct_block
+@export var SPEED := 50
+var current_block: CraftableBlock
 
-# Called when the node enters the scene tree for the first time.
+func start_construction():
+	$ConstructionTimer.start()
+
+func set_destination(block: CraftableBlock):
+	current_block = block
+	rotate(position.direction_to(block.position).angle())
+
 func _ready():
-	pass # Replace with function body.
+	pass 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
+func _process(delta):
+	if current_block:
+		position += position.direction_to(current_block.position) * SPEED * delta
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
+
+func _on_construction_timer_timeout():
+	construct_block.emit()
+
+
+func _on_body_entered(_body: Area2D):
+	print(_body.name)
