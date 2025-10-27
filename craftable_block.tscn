@@ -7,8 +7,8 @@
 size = Vector2(16, 16)
 
 [node name="CraftableBlock" type="Area2D"]
-collision_layer = 3
 script = ExtResource("1_cl516")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_g5i31")
@@ -17,4 +17,3 @@ texture = ExtResource("1_g5i31")
 shape = SubResource("RectangleShape2D_cl516")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

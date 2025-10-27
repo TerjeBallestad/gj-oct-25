@@ -12,10 +12,5 @@ func _ready():
 func _process(_delta):
 	pass
 
-
-func _on_body_entered(body):
-	print(body.name)
-
-
-func _on_area_entered(area):
-	print(area.name)
+func _on_area_entered(gnome: Gnome):
+	print("area ente	red " + gnome.name)

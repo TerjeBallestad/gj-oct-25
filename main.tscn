@@ -28,16 +28,17 @@ grow_horizontal = 0
 [node name="Label" type="Label" parent="HUD/PanelContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "762 points"
+text = "0 points"
 
 [node name="player" parent="." instance=ExtResource("3_h2yge")]
-position = Vector2(348, 512)
+position = Vector2(304.99994, 430.99997)
 
 [node name="CraftableBlock" parent="." instance=ExtResource("5_lquwl")]
 position = Vector2(585, 392)
 scale = Vector2(9.960003, 4.2000046)
 
 [node name="GnomeSpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0

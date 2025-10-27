@@ -16,11 +16,8 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5vlar"]
 
-[node name="Gnome" type="RigidBody2D"]
-collision_layer = 3
-collision_mask = 0
-gravity_scale = 0.0
-contact_monitor = true
+[node name="Gnome" type="Area2D"]
+collision_mask = 2
 script = ExtResource("1_qe4o5")
 metadata/_edit_group_ = true
 
@@ -38,7 +35,11 @@ shape = SubResource("CircleShape2D_5vlar")
 scale = Vector2(3.9999988, 3.9600005)
 
 [node name="ConstructionTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="GraceTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="ConstructionTimer" to="." method="_on_construction_timer_timeout"]
+[connection signal="timeout" from="GraceTimer" to="." method="_on_grace_timer_timeout"]

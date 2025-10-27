@@ -13,8 +13,18 @@ func _process(_delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		position = event.position
-		print("Mouse Motion at: ", event.position)
 
 
 func _on_body_entered(_body):
 	hit.emit()
+
+
+func _on_area_entered(area):
+	print(area.name)
+	if area is Gnome:
+		area.flee()
+
+
+func _on_area_exited(area):
+	if area is Gnome:
+		area.undo_flee()
