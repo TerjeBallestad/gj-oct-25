@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl10w43np13e0"]
+
+[ext_resource type="Texture2D" uid="uid://diiqqqjp12mp7" path="res://sprites/square-white.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://ftfe7rpbpidr" path="res://sprites/circle-white.png" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://big25imuq7qc5" path="res://gnome.tscn" id="4_1bvp3"]
+
+[node name="main" type="Node2D"]
+
+[node name="SquareWhite" type="Sprite2D" parent="."]
+modulate = Color(0.575995, 0.5165384, 0.35056165, 1)
+texture_filter = 1
+position = Vector2(289, 348)
+scale = Vector2(9.03125, 7.4687486)
+texture = ExtResource("1_ig7tw")
+
+[node name="CircleWhite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(599.5, 532.5)
+scale = Vector2(8.9375, 8.9375)
+texture = ExtResource("2_0xm2m")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_bottom = 34.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="HUD/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "762 points"
+
+[node name="player" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(348, 512)
+
+[node name="Gnome" parent="." instance=ExtResource("4_1bvp3")]
+position = Vector2(472, 576)
