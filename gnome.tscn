@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://big25imuq7qc5"]
+[gd_scene load_steps=7 format=3 uid="uid://big25imuq7qc5"]
 
 [ext_resource type="Texture2D" uid="uid://ftfe7rpbpidr" path="res://sprites/circle-white.png" id="1_cna81"]
 [ext_resource type="Script" uid="uid://cgt70cjsa864c" path="res://gnome.gd" id="1_qe4o5"]
+[ext_resource type="Texture2D" uid="uid://cyucnjffm1k0" path="res://sprites/gnome/gnome10001.png" id="3_dt2vp"]
+[ext_resource type="Texture2D" uid="uid://gyx26rkn6cf4" path="res://sprites/gnome/gnome10002.png" id="4_4jxkh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qe4o5"]
 animations = [{
@@ -11,6 +13,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_dt2vp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4jxkh")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -23,9 +36,9 @@ metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.68804836, 0.5411318, 0.25916278, 1)
-texture_filter = 1
-scale = Vector2(5.0000052, 5)
+scale = Vector2(0.31250003, 0.31249976)
 sprite_frames = SubResource("SpriteFrames_qe4o5")
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(4, 4)
