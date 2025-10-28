@@ -18,6 +18,7 @@ animations = [{
 radius = 7.0
 
 [node name="player" type="Area2D"]
+z_index = 1
 scale = Vector2(5, 5)
 collision_layer = 5
 script = ExtResource("1_onrkg")

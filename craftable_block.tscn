@@ -7,6 +7,8 @@
 size = Vector2(16, 16)
 
 [node name="CraftableBlock" type="Area2D"]
+scale = Vector2(10, 4)
+collision_layer = 3
 script = ExtResource("1_cl516")
 metadata/_edit_group_ = true
 
@@ -15,5 +17,3 @@ texture = ExtResource("1_g5i31")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_cl516")
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
