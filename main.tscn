@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=11 format=3 uid="uid://dl10w43np13e0"]
 
 [ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://big25imuq7qc5" path="res://gnome.tscn" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://db2rqr8ejxjpa" path="res://sprites/scary/Scary Photos (1).jpg" id="4_5vw27"]
+[ext_resource type="Script" uid="uid://cafgpn2g1jrex" path="res://hud.gd" id="4_lquwl"]
+[ext_resource type="Texture2D" uid="uid://boo514vea303o" path="res://sprites/Scary_Prank_Factory_Oct_28_2025.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://d2ksy2jhnvqkp" path="res://craftable_block.tscn" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://dpsfr15a8cq2q" path="res://exports/web/index.icon.png" id="6_272bh"]
 
 [sub_resource type="Curve2D" id="Curve2D_272bh"]
 _data = {
@@ -11,14 +15,20 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5vw27"]
+blend_mode = 3
+
 [node name="main" type="Node"]
 script = ExtResource("1_7mycd")
 gnome_scene = ExtResource("4_1bvp3")
 block_scene = ExtResource("5_lquwl")
+scary_sprite1 = ExtResource("4_5vw27")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("4_lquwl")
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD"]
+modulate = Color(0.8017437, 0.60681945, 0.38480097, 1)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -31,8 +41,87 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "0 points"
 
-[node name="player" parent="." instance=ExtResource("3_h2yge")]
+[node name="Control" type="Control" parent="HUD"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Victim Menu" type="VBoxContainer" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -269.0
+offset_right = 260.0
+offset_bottom = 231.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 17
+
+[node name="Label" type="Label" parent="HUD/Victim Menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Choose a victim to prank"
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Victim Menu"]
+visible = false
+custom_minimum_size = Vector2(0, 219.88)
+layout_mode = 2
+texture = ExtResource("5_7mycd")
+expand_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HUD/Victim Menu"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Victim Menu/ScrollContainer"]
+custom_minimum_size = Vector2(0, 258.05)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Victim1Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This is a button"
+icon = ExtResource("6_272bh")
+
+[node name="Victim2Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This is a button"
+icon = ExtResource("6_272bh")
+
+[node name="Victim3Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This is a button"
+icon = ExtResource("6_272bh")
+
+[node name="Victim4Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This is a button"
+icon = ExtResource("6_272bh")
+
+[node name="Victim5Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This is a button"
+icon = ExtResource("6_272bh")
+
+[node name="player" parent="." node_paths=PackedStringArray("fog") instance=ExtResource("3_h2yge")]
 position = Vector2(304.99994, 430.99997)
+fog = NodePath("../Fog")
 
 [node name="GnomeSpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -48,6 +137,16 @@ curve = SubResource("Curve2D_272bh")
 position = Vector2(0, 1)
 rotation = 0.0008673025
 
-[connection signal="hit" from="player" to="." method="_on_player_hit"]
+[node name="Fog" type="Sprite2D" parent="."]
+z_index = 2
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_5vw27")
+centered = false
+
+[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim1Button" to="HUD" method="_on_victim_1_button_pressed"]
+[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim2Button" to="HUD" method="_on_victim_2_button_pressed"]
+[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim3Button" to="HUD" method="_on_victim_3_button_pressed"]
+[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim4Button" to="HUD" method="_on_victim_4_button_pressed"]
+[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim5Button" to="HUD" method="_on_victim_5_button_pressed"]
 [connection signal="timeout" from="GnomeSpawnTimer" to="." method="_on_gnome_spawn_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
