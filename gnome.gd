@@ -45,7 +45,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_construction_timer_timeout():
 	if state == States.CONSTRUCTING:
-		current_block.construction(maxf(1, randf() * 10))
+		current_block.construction(maxf(0.01, randf() * 0.1))
 		construct_block.emit()
 
 func _on_grace_timer_timeout():

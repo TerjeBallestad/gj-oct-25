@@ -12,8 +12,10 @@ extends Node
 enum States { TITLE, LEVEL_SELECT, INSTRUCTIONS, GAME, GAME_STARTING, GAME_OVER, GAME_WIN }
 var state: States = States.TITLE
 
-var score := 0
+var score := 0.0
 var current_level := 0
+var columns := 3
+var rows := 4
 var current_block: CraftableBlock
 var gnomes: Array[Gnome] = []
 var blocks: Array[CraftableBlock] = []
@@ -25,22 +27,35 @@ func set_state(new_state: States):
 			pass
 		States.LEVEL_SELECT:
 			%VictimMenu.show()
+			%Fog.hide()
+			%ScoreCard.hide()
+			%GameOverMenu.hide()
+			%HintContainer.hide()
 		States.GAME_STARTING:
+			score_set(0)
 			start_timer.start()
-			score = 0
+			%Fog.show()
+			player.update_fog(Vector2(-100, -100))
 		States.GAME:
 			spawn_blocks()
 			current_block = blocks.pick_random()
 			add_child(player)
 			gnome_timer.start()
+			%HintContainer.show()
+			%HintFadeTimer.start()
 		States.GAME_OVER:
 			gnome_timer.stop()
 			remove_child(player)
 			%GameOverMenu.show()
+			%HintContainer.hide()
+			_clear_game_objects()
 		States.GAME_WIN:
 			gnome_timer.stop()
 			remove_child(player)
-			hud.show_score(score, 4*3*100, gnomes.size())
+			%Fog.hide()
+			hud.show_score(score, rows * columns, gnomes.size())
+			%HintContainer.hide()
+			_clear_game_objects()
 	state = new_state
 
 func _ready():
@@ -70,23 +85,20 @@ func remove_gnome(gnome: Gnome):
 	update_gnome_label()
 
 func score_add(amount: float):
-	score += int(amount)
-	%ScoreLabel.text = str(score) + " points"
+	score += amount
+	%ScoreLabel.text = "%.2f points" % score
 
 func score_set(amount: float):
-	score = int(amount)
-	%ScoreLabel.text = str(score) + " points"
-
-func update_gnome_label():
-	print(gnomes.size())
-	%GnomeCountLabel.text = str(gnomes.size()) + " gnomes"
+	score = amount
+	%ScoreLabel.text = "%.2f points" % score
 
 func score_update(amount: float):
-	score_set(finished_blocks.size() * 100 + amount)
+	score_set(finished_blocks.size() + amount)
+
+func update_gnome_label():
+	%GnomeCountLabel.text = "%d gnomes" % gnomes.size()
 
 func spawn_blocks():
-	var columns := 3
-	var rows := 4
 	var texture_size = scary_sprite1.get_size()
 	var tile_size = Vector2(	texture_size.x / columns, texture_size.y / rows)
 	var offset = Vector2(400, 100)
@@ -117,6 +129,18 @@ func finish_current_block(current: CraftableBlock):
 	for gnome in gnomes:
 		gnome.set_current_block(current_block)
 
+func _clear_game_objects():
+	for block in blocks:
+		block.queue_free()
+	for block in finished_blocks:
+		block.queue_free()
+	for gnome in gnomes:
+		gnome.queue_free()
+	blocks.clear()
+	finished_blocks.clear()
+	gnomes.clear()
+	update_gnome_label()
+
 func _on_hud_start_game(level: int):
 	current_level = level
 	%VictimMenu.hide()
@@ -126,3 +150,9 @@ func _on_hud_start_game(level: int):
 
 func _on_hud_retry_level():
 	_on_hud_start_game(current_level)
+	
+func _on_hud_go_to_level_select():
+	set_state(States.LEVEL_SELECT)
+
+func _on_hint_fade_timer_timeout():
+	%HintContainer.hide()

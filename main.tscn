@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=16 format=3 uid="uid://dl10w43np13e0"]
 
 [ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://cafgpn2g1jrex" path="res://hud.gd" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://boo514vea303o" path="res://sprites/Scary_Prank_Factory_Oct_28_2025.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://d2ksy2jhnvqkp" path="res://craftable_block.tscn" id="5_lquwl"]
-[ext_resource type="Texture2D" uid="uid://dpsfr15a8cq2q" path="res://exports/web/index.icon.png" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://br18ukvj5r3pp" path="res://sprites/people/timmy.png" id="7_dg77c"]
 [ext_resource type="Texture2D" uid="uid://cx2hnhmlgybxd" path="res://sprites/stars/star3.png" id="8_efxa6"]
+[ext_resource type="Texture2D" uid="uid://dufpw5ve6miwh" path="res://sprites/people/unknown_person.png" id="8_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://bk73wfg2b8ffc" path="res://sprites/stars/star1.png" id="9_dg77c"]
 [ext_resource type="Texture2D" uid="uid://bdvt6t4dc34py" path="res://sprites/stars/star2.png" id="10_ycdy4"]
 
@@ -34,6 +35,7 @@ unique_name_in_owner = true
 script = ExtResource("4_lquwl")
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD"]
+visible = false
 modulate = Color(0.8017437, 0.60681945, 0.38480097, 1)
 anchors_preset = 1
 anchor_left = 1.0
@@ -68,58 +70,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="GameOverMenu" type="TextureRect" parent="HUD/Control"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_5vw27")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/GameOverMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HSeparator" type="HSeparator" parent="HUD/Control/GameOverMenu/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50.68)
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
-
-[node name="Label" type="Label" parent="HUD/Control/GameOverMenu/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Game Over"
-horizontal_alignment = 1
-
-[node name="HSeparator2" type="HSeparator" parent="HUD/Control/GameOverMenu/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 219
-theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/GameOverMenu/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="RetryButton1" type="Button" parent="HUD/Control/GameOverMenu/VBoxContainer/HBoxContainer"]
-modulate = Color(0.587, 1, 0.41000003, 1)
-layout_mode = 2
-text = "Try again"
-
-[node name="LevelSelectButton1" type="Button" parent="HUD/Control/GameOverMenu/VBoxContainer/HBoxContainer"]
-modulate = Color(0.587, 1, 0.41000003, 1)
-layout_mode = 2
-text = "Select level"
 
 [node name="VictimMenu" type="VBoxContainer" parent="HUD/Control"]
 unique_name_in_owner = true
@@ -157,36 +107,41 @@ size_flags_horizontal = 3
 [node name="Victim1Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "This is a button"
-icon = ExtResource("6_272bh")
+theme_override_font_sizes/font_size = 32
+text = "Timmy"
+icon = ExtResource("7_dg77c")
 
 [node name="Victim2Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 disabled = true
-text = "This is a button"
-icon = ExtResource("6_272bh")
+text = "under development"
+icon = ExtResource("8_ycdy4")
 
 [node name="Victim3Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 disabled = true
-text = "This is a button"
-icon = ExtResource("6_272bh")
+text = "under development"
+icon = ExtResource("8_ycdy4")
 
 [node name="Victim4Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 disabled = true
-text = "This is a button"
-icon = ExtResource("6_272bh")
+text = "under development"
+icon = ExtResource("8_ycdy4")
 
 [node name="Victim5Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 disabled = true
-text = "This is a button"
-icon = ExtResource("6_272bh")
+text = "under development"
+icon = ExtResource("8_ycdy4")
 
 [node name="ScoreCard" type="PanelContainer" parent="HUD/Control"]
 unique_name_in_owner = true
@@ -340,6 +295,76 @@ modulate = Color(0.587, 1, 0.41000003, 1)
 layout_mode = 2
 text = "Again!"
 
+[node name="GameOverMenu" type="TextureRect" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_5vw27")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameOverMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="HUD/GameOverMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50.68)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
+
+[node name="Label" type="Label" parent="HUD/GameOverMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="HUD/GameOverMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 463
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/GameOverMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="RetryButton1" type="Button" parent="HUD/GameOverMenu/VBoxContainer/HBoxContainer"]
+modulate = Color(0.587, 1, 0.41000003, 1)
+layout_mode = 2
+text = "Try again"
+
+[node name="LevelSelectButton1" type="Button" parent="HUD/GameOverMenu/VBoxContainer/HBoxContainer"]
+modulate = Color(0.587, 1, 0.41000003, 1)
+layout_mode = 2
+text = "Select level"
+
+[node name="HintContainer" type="PanelContainer" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -319.38
+offset_top = -49.929993
+offset_right = -8.990723
+offset_bottom = -9.929993
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="HUD/HintContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Press spacebar to prank"
+
 [node name="player" parent="." node_paths=PackedStringArray("fog") instance=ExtResource("3_h2yge")]
 unique_name_in_owner = true
 position = Vector2(304.99994, 430.99997)
@@ -352,6 +377,11 @@ wait_time = 5.0
 wait_time = 2.0
 one_shot = true
 
+[node name="HintFadeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 15.0
+one_shot = true
+
 [node name="SpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_272bh")
 
@@ -360,19 +390,24 @@ position = Vector2(0, 1)
 rotation = 0.0008673025
 
 [node name="Fog" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 z_index = 2
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_5vw27")
 centered = false
 
+[connection signal="go_to_level_select" from="HUD" to="." method="_on_hud_go_to_level_select"]
 [connection signal="retry_level" from="HUD" to="." method="_on_hud_retry_level"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
-[connection signal="pressed" from="HUD/Control/GameOverMenu/VBoxContainer/HBoxContainer/RetryButton1" to="HUD" method="_on_retry_button_pressed"]
 [connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim1Button" to="HUD" method="_on_victim_1_button_pressed"]
 [connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim2Button" to="HUD" method="_on_victim_2_button_pressed"]
 [connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim3Button" to="HUD" method="_on_victim_3_button_pressed"]
 [connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim4Button" to="HUD" method="_on_victim_4_button_pressed"]
 [connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim5Button" to="HUD" method="_on_victim_5_button_pressed"]
+[connection signal="pressed" from="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer/LevelSelectButton2" to="HUD" method="_on_level_select_button_pressed"]
 [connection signal="pressed" from="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer/RetryButton2" to="HUD" method="_on_retry_button_pressed"]
+[connection signal="pressed" from="HUD/GameOverMenu/VBoxContainer/HBoxContainer/RetryButton1" to="HUD" method="_on_retry_button_pressed"]
+[connection signal="pressed" from="HUD/GameOverMenu/VBoxContainer/HBoxContainer/LevelSelectButton1" to="HUD" method="_on_level_select_button_pressed"]
 [connection signal="timeout" from="GnomeSpawnTimer" to="." method="_on_gnome_spawn_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="HintFadeTimer" to="." method="_on_hint_fade_timer_timeout"]
