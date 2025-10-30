@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=17 format=3 uid="uid://dl10w43np13e0"]
 
 [ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dufpw5ve6miwh" path="res://sprites/people/unknown_person.png" id="8_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://bk73wfg2b8ffc" path="res://sprites/stars/star1.png" id="9_dg77c"]
 [ext_resource type="Texture2D" uid="uid://bdvt6t4dc34py" path="res://sprites/stars/star2.png" id="10_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://mjx4l8wbmknn" path="res://sprites/people/timmy_scared_1.png" id="12_ycdy4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vw27"]
 
@@ -193,7 +194,7 @@ custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-text = "1000"
+text = "0"
 horizontal_alignment = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer"]
@@ -202,6 +203,7 @@ alignment = 1
 
 [node name="StarTexture1" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 texture = ExtResource("8_efxa6")
@@ -210,6 +212,7 @@ stretch_mode = 5
 
 [node name="StarTexture2" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 texture = ExtResource("9_dg77c")
@@ -218,6 +221,7 @@ stretch_mode = 5
 
 [node name="StarTexture3" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 texture = ExtResource("9_dg77c")
@@ -226,6 +230,7 @@ stretch_mode = 5
 
 [node name="StarTexture4" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 texture = ExtResource("10_ycdy4")
@@ -255,7 +260,7 @@ custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
-text = "1000"
+text = "0"
 horizontal_alignment = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer"]
@@ -272,7 +277,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "1000"
+text = "0"
 horizontal_alignment = 2
 
 [node name="HSeparator2" type="HSeparator" parent="HUD/Control/ScoreCard/VBoxContainer"]
@@ -294,6 +299,16 @@ text = "Select level"
 modulate = Color(0.587, 1, 0.41000003, 1)
 layout_mode = 2
 text = "Again!"
+
+[node name="VictimFace" type="TextureRect" parent="HUD/Control"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = -182.0
+offset_top = 100.0
+offset_right = 74.0
+offset_bottom = 356.0
+texture = ExtResource("12_ycdy4")
 
 [node name="GameOverMenu" type="TextureRect" parent="HUD"]
 unique_name_in_owner = true
@@ -348,6 +363,7 @@ text = "Select level"
 
 [node name="HintContainer" type="PanelContainer" parent="HUD"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

@@ -19,6 +19,7 @@ var rows := 4
 var current_block: CraftableBlock
 var gnomes: Array[Gnome] = []
 var blocks: Array[CraftableBlock] = []
+var all_blocks: Dictionary[CraftableBlock, Vector2] = {}
 var finished_blocks: Array[CraftableBlock] = []
 
 func set_state(new_state: States):
@@ -31,18 +32,20 @@ func set_state(new_state: States):
 			%ScoreCard.hide()
 			%GameOverMenu.hide()
 			%HintContainer.hide()
+			%VictimFace.hide()
+			_clear_game_objects()
 		States.GAME_STARTING:
 			score_set(0)
 			start_timer.start()
 			%Fog.show()
 			player.update_fog(Vector2(-100, -100))
+			_clear_game_objects()
+			%VictimFace.hide()
 		States.GAME:
 			spawn_blocks()
 			current_block = blocks.pick_random()
 			add_child(player)
 			gnome_timer.start()
-			%HintContainer.show()
-			%HintFadeTimer.start()
 		States.GAME_OVER:
 			gnome_timer.stop()
 			remove_child(player)
@@ -55,7 +58,11 @@ func set_state(new_state: States):
 			%Fog.hide()
 			hud.show_score(score, rows * columns, gnomes.size())
 			%HintContainer.hide()
-			_clear_game_objects()
+			move_blocks_score_card()
+			for gnome in gnomes:
+				gnome.queue_free()
+			gnomes.clear()
+			#_clear_game_objects()
 	state = new_state
 
 func _ready():
@@ -110,6 +117,7 @@ func spawn_blocks():
 			block.position = position + offset + Vector2(i * 3, j * 3)
 			var region = Rect2(position, tile_size)
 			blocks.push_back(block)
+			all_blocks[block] = Vector2(i, j)
 			add_child(block)
 			var sprite = block.sprite_node
 			sprite.region_enabled = true
@@ -119,9 +127,23 @@ func spawn_blocks():
 			block.update_progress.connect(score_update)
 			block.construction_complete.connect(finish_current_block)
 
+func move_blocks_score_card():
+	var offset = Vector2(50, 300)
+	var scale = Vector2(0.3, 0.3)
+	var texture_size = scary_sprite1.get_size() * scale
+	var tile_size = Vector2(	texture_size.x / columns, texture_size.y / rows)
+	for block in all_blocks:
+		var coord = all_blocks[block]
+		var position = coord * tile_size
+		block.scale = scale
+		block.position = position + offset
+
 func finish_current_block(current: CraftableBlock):
 	finished_blocks.push_back(current)
 	blocks.erase(current)
+	if finished_blocks.size() == 1:
+			%HintContainer.show()
+			%HintFadeTimer.start()
 	if blocks.size() == 0:
 		set_state(States.GAME_OVER)
 		return
@@ -137,6 +159,7 @@ func _clear_game_objects():
 	for gnome in gnomes:
 		gnome.queue_free()
 	blocks.clear()
+	all_blocks.clear()
 	finished_blocks.clear()
 	gnomes.clear()
 	update_gnome_label()

@@ -36,7 +36,7 @@ func undo_flee():
 func _ready():
 	pass
 
-func _process(delta):
+func _process(delta: float):
 	if state in [States.WALKING, States.FLEEING]:
 		position = position.move_toward(current_destination, speed * delta)
 
