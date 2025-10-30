@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=15 format=3 uid="uid://dl10w43np13e0"]
 
 [ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
@@ -8,6 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://boo514vea303o" path="res://sprites/Scary_Prank_Factory_Oct_28_2025.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://d2ksy2jhnvqkp" path="res://craftable_block.tscn" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://dpsfr15a8cq2q" path="res://exports/web/index.icon.png" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://cx2hnhmlgybxd" path="res://sprites/stars/star3.png" id="8_efxa6"]
+[ext_resource type="Texture2D" uid="uid://bk73wfg2b8ffc" path="res://sprites/stars/star1.png" id="9_dg77c"]
+[ext_resource type="Texture2D" uid="uid://bdvt6t4dc34py" path="res://sprites/stars/star2.png" id="10_ycdy4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vw27"]
 
 [sub_resource type="Curve2D" id="Curve2D_272bh"]
 _data = {
@@ -25,6 +30,7 @@ block_scene = ExtResource("5_lquwl")
 scary_sprite1 = ExtResource("4_5vw27")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 script = ExtResource("4_lquwl")
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD"]
@@ -36,7 +42,18 @@ offset_left = -120.0
 offset_bottom = 34.0
 grow_horizontal = 0
 
-[node name="Label" type="Label" parent="HUD/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 37
+
+[node name="GnomeCountLabel" type="Label" parent="HUD/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0 Gnomes"
+
+[node name="ScoreLabel" type="Label" parent="HUD/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "0 points"
@@ -52,74 +69,279 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Victim Menu" type="VBoxContainer" parent="HUD"]
+[node name="GameOverMenu" type="TextureRect" parent="HUD/Control"]
+unique_name_in_owner = true
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -269.0
-offset_right = 260.0
-offset_bottom = 231.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_5vw27")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/GameOverMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSeparator" type="HSeparator" parent="HUD/Control/GameOverMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50.68)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
+
+[node name="Label" type="Label" parent="HUD/Control/GameOverMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="HUD/Control/GameOverMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 219
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/GameOverMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="RetryButton1" type="Button" parent="HUD/Control/GameOverMenu/VBoxContainer/HBoxContainer"]
+modulate = Color(0.587, 1, 0.41000003, 1)
+layout_mode = 2
+text = "Try again"
+
+[node name="LevelSelectButton1" type="Button" parent="HUD/Control/GameOverMenu/VBoxContainer/HBoxContainer"]
+modulate = Color(0.587, 1, 0.41000003, 1)
+layout_mode = 2
+text = "Select level"
+
+[node name="VictimMenu" type="VBoxContainer" parent="HUD/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 17
 
-[node name="Label" type="Label" parent="HUD/Victim Menu"]
+[node name="Label" type="Label" parent="HUD/Control/VictimMenu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Choose a victim to prank"
 
-[node name="TextureRect" type="TextureRect" parent="HUD/Victim Menu"]
+[node name="TextureRect" type="TextureRect" parent="HUD/Control/VictimMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 219.88)
 layout_mode = 2
 texture = ExtResource("5_7mycd")
 expand_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HUD/Victim Menu"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HUD/Control/VictimMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Victim Menu/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/VictimMenu/ScrollContainer"]
 custom_minimum_size = Vector2(0, 258.05)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Victim1Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+[node name="Victim1Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "This is a button"
 icon = ExtResource("6_272bh")
 
-[node name="Victim2Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+[node name="Victim2Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "This is a button"
 icon = ExtResource("6_272bh")
 
-[node name="Victim3Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+[node name="Victim3Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "This is a button"
 icon = ExtResource("6_272bh")
 
-[node name="Victim4Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+[node name="Victim4Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "This is a button"
 icon = ExtResource("6_272bh")
 
-[node name="Victim5Button" type="Button" parent="HUD/Victim Menu/ScrollContainer/VBoxContainer"]
+[node name="Victim5Button" type="Button" parent="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "This is a button"
 icon = ExtResource("6_272bh")
+
+[node name="ScoreCard" type="PanelContainer" parent="HUD/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/ScoreCard"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Final Score"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HUD/Control/ScoreCard/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50.68)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Score:"
+
+[node name="BaseScore" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "1000"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="StarTexture1" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+texture = ExtResource("8_efxa6")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StarTexture2" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+texture = ExtResource("9_dg77c")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StarTexture3" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+texture = ExtResource("9_dg77c")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StarTexture4" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+texture = ExtResource("10_ycdy4")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StarTexture5" type="TextureRect" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+texture = ExtResource("8_efxa6")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Gnomes:"
+
+[node name="GnomeCount" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "1000"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Total"
+
+[node name="TotalScore" type="Label" parent="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "1000"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="HUD/Control/ScoreCard/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50.68)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_5vw27")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/ScoreCard/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="LevelSelectButton2" type="Button" parent="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer"]
+modulate = Color(0.587, 1, 0.41000003, 1)
+layout_mode = 2
+text = "Select level"
+
+[node name="RetryButton2" type="Button" parent="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer"]
+modulate = Color(0.587, 1, 0.41000003, 1)
+layout_mode = 2
+text = "Again!"
 
 [node name="player" parent="." node_paths=PackedStringArray("fog") instance=ExtResource("3_h2yge")]
+unique_name_in_owner = true
 position = Vector2(304.99994, 430.99997)
 fog = NodePath("../Fog")
 
@@ -143,10 +365,14 @@ texture_filter = 1
 material = SubResource("CanvasItemMaterial_5vw27")
 centered = false
 
-[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim1Button" to="HUD" method="_on_victim_1_button_pressed"]
-[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim2Button" to="HUD" method="_on_victim_2_button_pressed"]
-[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim3Button" to="HUD" method="_on_victim_3_button_pressed"]
-[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim4Button" to="HUD" method="_on_victim_4_button_pressed"]
-[connection signal="pressed" from="HUD/Victim Menu/ScrollContainer/VBoxContainer/Victim5Button" to="HUD" method="_on_victim_5_button_pressed"]
+[connection signal="retry_level" from="HUD" to="." method="_on_hud_retry_level"]
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
+[connection signal="pressed" from="HUD/Control/GameOverMenu/VBoxContainer/HBoxContainer/RetryButton1" to="HUD" method="_on_retry_button_pressed"]
+[connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim1Button" to="HUD" method="_on_victim_1_button_pressed"]
+[connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim2Button" to="HUD" method="_on_victim_2_button_pressed"]
+[connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim3Button" to="HUD" method="_on_victim_3_button_pressed"]
+[connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim4Button" to="HUD" method="_on_victim_4_button_pressed"]
+[connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim5Button" to="HUD" method="_on_victim_5_button_pressed"]
+[connection signal="pressed" from="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer/RetryButton2" to="HUD" method="_on_retry_button_pressed"]
 [connection signal="timeout" from="GnomeSpawnTimer" to="." method="_on_gnome_spawn_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

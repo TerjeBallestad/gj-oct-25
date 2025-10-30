@@ -20,7 +20,7 @@ func _ready():
 	lightImage.resize(16, 16)
 	lightImage.convert(Image.FORMAT_RGBAH)
 	fog.scale *= GRID_SIZE
-	update_fog(get_local_mouse_position() / GRID_SIZE)
+	update_fog(Vector2(-100, -100) / GRID_SIZE)
 
 func update_fog(new_grid_position: Vector2):
 	var light_rect = Rect2(Vector2.ZERO, Vector2(lightImage.get_width(), lightImage.get_height()))

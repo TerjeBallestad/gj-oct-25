@@ -17,7 +17,6 @@ func start_construction():
 	$ConstructionTimer.start()
 
 func set_current_block(block: CraftableBlock):
-	print(name, " current block update")
 	state = States.WALKING
 	current_block = block
 	set_destination(block.position)
@@ -42,7 +41,6 @@ func _process(delta):
 		position = position.move_toward(current_destination, speed * delta)
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	die.emit(self)
 	queue_free()
 
 func _on_construction_timer_timeout():
@@ -53,6 +51,7 @@ func _on_construction_timer_timeout():
 func _on_grace_timer_timeout():
 	rotate(PI)
 	set_destination(transform.x.normalized() * 4000)
+	die.emit(self)
 	state = States.FLEEING
 
 func _on_area_entered(area: Area2D):
