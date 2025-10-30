@@ -34,7 +34,7 @@ func undo_flee():
 	$GraceTimer.stop()
 
 func _ready():
-	pass
+	$AnimatedSprite2D.play("walk")
 
 func _process(delta: float):
 	if state in [States.WALKING, States.FLEEING]:
