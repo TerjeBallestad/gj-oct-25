@@ -32,6 +32,7 @@ func flee():
 		return
 	$GraceTimer.start()
 	$AnimatedSprite2D.play("caught")
+	$PanicSFX.play()
 
 func undo_flee():
 	$GraceTimer.stop()
