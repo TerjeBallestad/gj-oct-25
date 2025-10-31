@@ -23,14 +23,11 @@ func start_construction():
 	$AnimatedSprite2D.flip_v = false
 
 func set_current_block(block: CraftableBlock):
-		
+	current_block = block
 	if block in get_overlapping_areas():
-		print(colliding_block)
-		
 		start_construction()
 		return
 	state = States.WALKING
-	current_block = block
 	set_destination(block.position)
 
 func set_destination(destination: Vector2):
