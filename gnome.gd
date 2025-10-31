@@ -10,6 +10,7 @@ signal construct_block
 signal die(victim: Gnome)
 
 var current_block: CraftableBlock
+var colliding_block: CraftableBlock
 var current_destination: Vector2
 var pickaxe_frams: Array[int] = [2]
 
@@ -22,6 +23,12 @@ func start_construction():
 	$AnimatedSprite2D.flip_v = false
 
 func set_current_block(block: CraftableBlock):
+		
+	if block in get_overlapping_areas():
+		print(colliding_block)
+		
+		start_construction()
+		return
 	state = States.WALKING
 	current_block = block
 	set_destination(block.position)
@@ -73,13 +80,14 @@ func _on_grace_timer_timeout():
 	state = States.FLEEING
 	$AnimatedSprite2D.play("fleeing")
 
-func _on_area_entered(area: Area2D):
-	if current_block.name == area.name:
+func _on_area_entered(area):
+	if area is CraftableBlock:
+		colliding_block = area
+	if current_block == area:
 		start_construction()
-
 
 func _on_sprite_frame_changed():
 	if $AnimatedSprite2D.animation == "working" && $AnimatedSprite2D.frame in pickaxe_frams:
-		%PickaxeSFX.pitch_scale = 1 + randf() * 0.2
+		%PickaxeSFX.pitch_scale = 1 + randf() * 0.3
 		%PickaxeSFX.play(0.29)
 	

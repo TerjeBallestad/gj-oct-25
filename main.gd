@@ -64,7 +64,7 @@ func set_state(new_state: States):
 			gnome_timer.stop()
 			remove_child(player)
 			%GameOverMenu.show()
-			%HintContainer.hide()
+			%HintContainer.hide() 
 			_clear_game_objects()
 			$%AudioStreamMusic.stop()
 			%AudioWillhelm.play()
@@ -160,8 +160,8 @@ func finish_current_block(current: CraftableBlock):
 	finished_blocks.push_back(current)
 	blocks.erase(current)
 	if finished_blocks.size() == 1:
-			%HintContainer.show()
-			%HintFadeTimer.start()
+		%HintContainer.show()
+		%HintFadeTimer.start()
 	if blocks.size() == 0:
 		set_state(States.GAME_OVER)
 		return
@@ -170,9 +170,7 @@ func finish_current_block(current: CraftableBlock):
 		gnome.set_current_block(current_block)
 
 func _clear_game_objects():
-	for block in blocks:
-		block.queue_free()
-	for block in finished_blocks:
+	for block in all_blocks:
 		block.queue_free()
 	for gnome in gnomes:
 		gnome.queue_free()

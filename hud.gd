@@ -19,8 +19,10 @@ func show_score(points: float, available_points: float, gnomes: int):
 	%StarTexture3.modulate = Color.BLACK
 	%StarTexture4.modulate = Color.BLACK
 	%StarTexture5.modulate = Color.BLACK
+	%GnomeCount.text = "0"
+	%TotalScore.text = "0"
+	
 	tween.tween_method(set_label_text.bind(%BaseScore), 0, points * 10.0, 1.0)
-	#%BaseScore.text = "%d" % (points * 10.0)
 	var percentage = points / available_points
 
 	%VictimFace.show()
@@ -41,11 +43,9 @@ func show_score(points: float, available_points: float, gnomes: int):
 		tween.tween_method(set_visible_stars, 0, 5, 1.0)
 		%VictimFace.texture = timmy_scared_5
 	tween.tween_method(set_label_text.bind(%GnomeCount), 0, gnomes, 1.0)
-	#%GnomeCount.text = str(gnomes)
 	var total = int(points * 10) * gnomes
 	tween.tween_method(set_label_text.bind(%TotalScore), 0, total, 1.0)
 	tween.tween_property(%VictimFace, "modulate", Color.WHITE, 1.0)
-	#%TotalScore.text = "%d" % total
 
 func set_label_text(number: float, label: Label):
 	label.text = "%d" % number
