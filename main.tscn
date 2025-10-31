@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=18 format=3 uid="uid://dl10w43np13e0"]
 
 [ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bk73wfg2b8ffc" path="res://sprites/stars/star1.png" id="9_dg77c"]
 [ext_resource type="Texture2D" uid="uid://bdvt6t4dc34py" path="res://sprites/stars/star2.png" id="10_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://mjx4l8wbmknn" path="res://sprites/people/timmy_scared_1.png" id="12_ycdy4"]
+[ext_resource type="AudioStream" uid="uid://cdmxr8xb57j1m" path="res://audio/backroundmusic/backroundmusicv2.mp3" id="14_w48qg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vw27"]
 
@@ -411,6 +412,10 @@ z_index = 2
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_5vw27")
 centered = false
+
+[node name="AudioStreamPlayer-BGmusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_w48qg")
+autoplay = true
 
 [connection signal="go_to_level_select" from="HUD" to="." method="_on_hud_go_to_level_select"]
 [connection signal="retry_level" from="HUD" to="." method="_on_hud_retry_level"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blwp7gvdys7pv"
-path="res://.godot/imported/left_down0003.png-d9970b3d3cc72e83549622660c29d173.ctex"
+uid="uid://wtp2gu3wi5o1"
+path="res://.godot/imported/walking0002.png-e6a0ef2f1c7ad11830224eab9fb1918c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gnome/walking/left_down0003.png"
-dest_files=["res://.godot/imported/left_down0003.png-d9970b3d3cc72e83549622660c29d173.ctex"]
+source_file="res://sprites/gnome/walking/walking0002.png"
+dest_files=["res://.godot/imported/walking0002.png-e6a0ef2f1c7ad11830224eab9fb1918c.ctex"]
 
 [params]
 

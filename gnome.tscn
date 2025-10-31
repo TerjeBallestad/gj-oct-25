@@ -1,15 +1,40 @@
-[gd_scene load_steps=10 format=3 uid="uid://big25imuq7qc5"]
+[gd_scene load_steps=21 format=3 uid="uid://big25imuq7qc5"]
 
 [ext_resource type="Texture2D" uid="uid://ftfe7rpbpidr" path="res://sprites/circle-white.png" id="1_cna81"]
 [ext_resource type="Script" uid="uid://cgt70cjsa864c" path="res://gnome.gd" id="1_qe4o5"]
-[ext_resource type="Texture2D" uid="uid://bsltv84ctayt4" path="res://sprites/gnome/walking/left_down0001.png" id="3_wiii2"]
-[ext_resource type="Texture2D" uid="uid://by2ip6jiisxbp" path="res://sprites/gnome/walking/left_down0002.png" id="4_t5a4p"]
-[ext_resource type="Texture2D" uid="uid://blwp7gvdys7pv" path="res://sprites/gnome/walking/left_down0003.png" id="5_vh54l"]
-[ext_resource type="Texture2D" uid="uid://codtejq1b7s6c" path="res://sprites/gnome/walking/left_down0004.png" id="6_wkmj8"]
-[ext_resource type="Texture2D" uid="uid://eqnybjnwgtdl" path="res://sprites/gnome/walking/left_down0005.png" id="7_lq5ji"]
+[ext_resource type="Texture2D" uid="uid://p2a7gcnrcgl6" path="res://sprites/gnome/caught/caught00020001.png" id="2_j3ssh"]
+[ext_resource type="Texture2D" uid="uid://c5b1wngqe2etp" path="res://sprites/gnome/caught/caught00020002.png" id="3_8st31"]
+[ext_resource type="Texture2D" uid="uid://cnfjhx02gl4vy" path="res://sprites/gnome/walking/walking0001.png" id="3_lq5ji"]
+[ext_resource type="Texture2D" uid="uid://wtp2gu3wi5o1" path="res://sprites/gnome/walking/walking0002.png" id="4_2xvbc"]
+[ext_resource type="Texture2D" uid="uid://dsehb4lkeg25p" path="res://sprites/gnome/caught/caught00020003.png" id="4_3rudp"]
+[ext_resource type="Texture2D" uid="uid://cxhh1mtsw5dgr" path="res://sprites/gnome/walking/walking0003.png" id="5_iiff8"]
+[ext_resource type="Texture2D" uid="uid://uqjx7pdrj6l8" path="res://sprites/gnome/walking/walking0004.png" id="6_mdfrs"]
+[ext_resource type="Texture2D" uid="uid://b6ghfekcjiuty" path="res://sprites/gnome/fleeing/fleeing0001.png" id="6_x5iel"]
+[ext_resource type="Texture2D" uid="uid://i4brbqfu7wxk" path="res://sprites/gnome/fleeing/fleeing0002.png" id="7_fkelc"]
+[ext_resource type="Texture2D" uid="uid://bp1p6jomy55wd" path="res://sprites/gnome/walking/walking0005.png" id="7_l3ddj"]
+[ext_resource type="Texture2D" uid="uid://ce1y4qbwmipkm" path="res://sprites/gnome/working/working0001.png" id="8_lq5ji"]
+[ext_resource type="Texture2D" uid="uid://bcvlvip8g4pvy" path="res://sprites/gnome/fleeing/fleeing0003.png" id="8_pe3sc"]
+[ext_resource type="Texture2D" uid="uid://d2g1huj3qb2sl" path="res://sprites/gnome/working/working0002.png" id="9_2xvbc"]
+[ext_resource type="Texture2D" uid="uid://1ygkl7e8i2m7" path="res://sprites/gnome/fleeing/fleeing0004.png" id="9_iggak"]
+[ext_resource type="Texture2D" uid="uid://ohm2mallyy5t" path="res://sprites/gnome/working/working0003.png" id="10_iiff8"]
+[ext_resource type="Texture2D" uid="uid://dpgul8mq843mx" path="res://sprites/gnome/working/working0004.png" id="11_mdfrs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qe4o5"]
 animations = [{
+"frames": [{
+"duration": 0.81,
+"texture": ExtResource("2_j3ssh")
+}, {
+"duration": 0.41,
+"texture": ExtResource("3_8st31")
+}, {
+"duration": 2.41,
+"texture": ExtResource("4_3rudp")
+}],
+"loop": true,
+"name": &"caught",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_cna81")
@@ -19,23 +44,57 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 0.91,
+"texture": ExtResource("6_x5iel")
+}, {
+"duration": 0.91,
+"texture": ExtResource("7_fkelc")
+}, {
+"duration": 0.91,
+"texture": ExtResource("8_pe3sc")
+}, {
+"duration": 0.91,
+"texture": ExtResource("9_iggak")
+}],
+"loop": true,
+"name": &"fleeing",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_wiii2")
+"texture": ExtResource("3_lq5ji")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_t5a4p")
+"texture": ExtResource("4_2xvbc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_vh54l")
+"texture": ExtResource("5_iiff8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_wkmj8")
+"texture": ExtResource("6_mdfrs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_lq5ji")
+"texture": ExtResource("7_l3ddj")
 }],
 "loop": true,
 "name": &"walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_lq5ji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2xvbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_iiff8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mdfrs")
+}],
+"loop": true,
+"name": &"working",
 "speed": 5.0
 }]
 
@@ -49,10 +108,11 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.68804836, 0.5411318, 0.25916278, 1)
 texture_filter = 1
-position = Vector2(-1, 22.000002)
-scale = Vector2(0.7890625, 0.7890617)
+position = Vector2(0, 3.999999)
+scale = Vector2(0.6171875, 0.617187)
 sprite_frames = SubResource("SpriteFrames_qe4o5")
-animation = &"walk"
+animation = &"caught"
+frame_progress = 0.8747287
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(4, 4)
