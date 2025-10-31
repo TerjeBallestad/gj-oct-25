@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dl10w43np13e0"]
+[gd_scene load_steps=20 format=3 uid="uid://dl10w43np13e0"]
 
 [ext_resource type="Script" uid="uid://b1tv82lymofue" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://v5881phm0ip2" path="res://player.tscn" id="3_h2yge"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://dn01v75xbjw6a" path="res://audio/mainmenumusic/mainmenumusic.mp3" id="12_vivmo"]
 [ext_resource type="Texture2D" uid="uid://mjx4l8wbmknn" path="res://sprites/people/timmy_scared_1.png" id="12_ycdy4"]
 [ext_resource type="AudioStream" uid="uid://cdmxr8xb57j1m" path="res://audio/backroundmusic/backroundmusicv2.mp3" id="14_w48qg"]
+[ext_resource type="AudioStream" uid="uid://dq0nfqon4qoka" path="res://audio/sfx/Wilhelm Scream Sound Effect HD.mp3" id="16_2cqfq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vw27"]
 
@@ -150,6 +151,7 @@ icon = ExtResource("8_ycdy4")
 
 [node name="ScoreCard" type="PanelContainer" parent="HUD/Control"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -305,6 +307,7 @@ text = "Again!"
 
 [node name="VictimFace" type="TextureRect" parent="HUD/Control"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 0
 offset_left = -182.0
@@ -312,6 +315,61 @@ offset_top = 100.0
 offset_right = 74.0
 offset_bottom = 356.0
 texture = ExtResource("12_ycdy4")
+
+[node name="InstructionPanel" type="MarginContainer" parent="HUD/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 24
+
+[node name="Panel" type="PanelContainer" parent="HUD/Control/InstructionPanel"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Control/InstructionPanel/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HUD/Control/InstructionPanel/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/line_separation = 1
+theme_override_constants/paragraph_separation = 5
+bbcode_enabled = true
+text = "[b]Welcome to the factory[/b]
+Check the status of the prank by moving the light with your mouse.
+Press spacebar to prank your victim.
+
+The gnomes don't like to be looked at while they are working, so try not to look at them directly.
+
+Oh, and also, be careful so you don't end up as the victim yourself. Have fun."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/InstructionPanel"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Control/InstructionPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Button" type="Button" parent="HUD/Control/InstructionPanel/HBoxContainer/MarginContainer"]
+modulate = Color(0.7325087, 0.8858899, 0.64170194, 1)
+custom_minimum_size = Vector2(73.47, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 21
+text = "Start"
 
 [node name="GameOverMenu" type="TextureRect" parent="HUD"]
 unique_name_in_owner = true
@@ -419,6 +477,11 @@ unique_name_in_owner = true
 stream = ExtResource("14_w48qg")
 bus = &"Music"
 
+[node name="AudioWillhelm" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("16_2cqfq")
+bus = &"SFX"
+
 [connection signal="go_to_level_select" from="HUD" to="." method="_on_hud_go_to_level_select"]
 [connection signal="retry_level" from="HUD" to="." method="_on_hud_retry_level"]
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
@@ -429,6 +492,7 @@ bus = &"Music"
 [connection signal="pressed" from="HUD/Control/VictimMenu/ScrollContainer/VBoxContainer/Victim5Button" to="HUD" method="_on_victim_5_button_pressed"]
 [connection signal="pressed" from="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer/LevelSelectButton2" to="HUD" method="_on_level_select_button_pressed"]
 [connection signal="pressed" from="HUD/Control/ScoreCard/VBoxContainer/HBoxContainer/RetryButton2" to="HUD" method="_on_retry_button_pressed"]
+[connection signal="pressed" from="HUD/Control/InstructionPanel/HBoxContainer/MarginContainer/Button" to="HUD" method="_on_instruction_start_button_pressed"]
 [connection signal="pressed" from="HUD/GameOverMenu/VBoxContainer/HBoxContainer/RetryButton1" to="HUD" method="_on_retry_button_pressed"]
 [connection signal="pressed" from="HUD/GameOverMenu/VBoxContainer/HBoxContainer/LevelSelectButton1" to="HUD" method="_on_level_select_button_pressed"]
 [connection signal="timeout" from="GnomeSpawnTimer" to="." method="_on_gnome_spawn_timer_timeout"]

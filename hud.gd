@@ -82,3 +82,8 @@ func _on_retry_button_pressed():
 
 func _on_level_select_button_pressed():
 	go_to_level_select.emit()
+
+
+func _on_instruction_start_button_pressed():
+	%InstructionPanel.hide()
+	retry_level.emit()

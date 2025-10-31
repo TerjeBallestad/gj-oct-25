@@ -13,6 +13,7 @@ extends Node
 
 enum States { TITLE, LEVEL_SELECT, INSTRUCTIONS, GAME, GAME_STARTING, GAME_OVER, GAME_WIN }
 var state: States = States.TITLE
+var show_instructions = true
 
 var score := 0.0
 var current_level := 0
@@ -41,12 +42,17 @@ func set_state(new_state: States):
 				%AudioStreamMusic.play()
 		States.GAME_STARTING:
 			score_set(0)
-			start_timer.start()
 			%Fog.show()
 			player.update_fog(Vector2(-100, -100))
 			_clear_game_objects()
 			%VictimFace.hide()
 			%AudioStreamMusic.stop()
+			
+			if show_instructions:
+				show_instructions = false
+				%InstructionPanel.show()
+				return
+			start_timer.start()
 		States.GAME:
 			spawn_blocks()
 			current_block = blocks.pick_random()
@@ -61,6 +67,7 @@ func set_state(new_state: States):
 			%HintContainer.hide()
 			_clear_game_objects()
 			$%AudioStreamMusic.stop()
+			%AudioWillhelm.play()
 		States.GAME_WIN:
 			gnome_timer.stop()
 			remove_child(player)

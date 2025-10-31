@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bjl3hvn1krnfo"
+path="res://.godot/imported/Pickaxe SFX.mp3-f5257b4cd034e57456fe7b13394e9cdf.mp3str"
+
+[deps]
+
+source_file="res://audio/sfx/Pickaxe SFX.mp3"
+dest_files=["res://.godot/imported/Pickaxe SFX.mp3-f5257b4cd034e57456fe7b13394e9cdf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

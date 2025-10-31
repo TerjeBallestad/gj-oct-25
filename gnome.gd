@@ -11,11 +11,15 @@ signal die(victim: Gnome)
 
 var current_block: CraftableBlock
 var current_destination: Vector2
+var pickaxe_frams: Array[int] = [2]
 
 func start_construction():
 	state = States.CONSTRUCTING
 	$ConstructionTimer.start()
+	rotation = position.direction_to(current_destination).angle() + PI * 1.5
 	$AnimatedSprite2D.play("working")
+	$AnimatedSprite2D.flip_h = false
+	$AnimatedSprite2D.flip_v = false
 
 func set_current_block(block: CraftableBlock):
 	state = States.WALKING
@@ -23,8 +27,16 @@ func set_current_block(block: CraftableBlock):
 	set_destination(block.position)
 
 func set_destination(destination: Vector2):
-	rotate(position.direction_to(destination).angle())
+	rotation = PI * -0.25
 	current_destination = destination
+	if current_destination.x > position.x:
+		$AnimatedSprite2D.flip_h = false
+	else:
+		$AnimatedSprite2D.flip_h = true
+	if current_destination.y > position.y:
+		$AnimatedSprite2D.flip_v = false
+	else:
+		$AnimatedSprite2D.flip_v = true
 	$AnimatedSprite2D.play("walk")
 
 func flee():
@@ -35,6 +47,10 @@ func flee():
 
 func undo_flee():
 	$GraceTimer.stop()
+	if state == States.WALKING:
+		$AnimatedSprite2D.play("walk")
+	if state == States.CONSTRUCTING:
+		$AnimatedSprite2D.play("working")
 
 func _ready():
 	$AnimatedSprite2D.play("walk")
@@ -52,11 +68,18 @@ func _on_construction_timer_timeout():
 		construct_block.emit()
 
 func _on_grace_timer_timeout():
-	rotate(PI)
 	set_destination(transform.x.normalized() * 4000)
 	die.emit(self)
 	state = States.FLEEING
+	$AnimatedSprite2D.play("fleeing")
 
 func _on_area_entered(area: Area2D):
 	if current_block.name == area.name:
 		start_construction()
+
+
+func _on_sprite_frame_changed():
+	if $AnimatedSprite2D.animation == "working" && $AnimatedSprite2D.frame in pickaxe_frams:
+		%PickaxeSFX.pitch_scale = 1 + randf() * 0.2
+		%PickaxeSFX.play(0.29)
+	

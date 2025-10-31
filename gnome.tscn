@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://big25imuq7qc5"]
+[gd_scene load_steps=22 format=3 uid="uid://big25imuq7qc5"]
 
 [ext_resource type="Texture2D" uid="uid://ftfe7rpbpidr" path="res://sprites/circle-white.png" id="1_cna81"]
 [ext_resource type="Script" uid="uid://cgt70cjsa864c" path="res://gnome.gd" id="1_qe4o5"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://1ygkl7e8i2m7" path="res://sprites/gnome/fleeing/fleeing0004.png" id="9_iggak"]
 [ext_resource type="Texture2D" uid="uid://ohm2mallyy5t" path="res://sprites/gnome/working/working0003.png" id="10_iiff8"]
 [ext_resource type="Texture2D" uid="uid://dpgul8mq843mx" path="res://sprites/gnome/working/working0004.png" id="11_mdfrs"]
+[ext_resource type="AudioStream" uid="uid://bjl3hvn1krnfo" path="res://audio/sfx/Pickaxe SFX.mp3" id="19_8st31"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qe4o5"]
 animations = [{
@@ -108,11 +109,9 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.68804836, 0.5411318, 0.25916278, 1)
 texture_filter = 1
-position = Vector2(0, 3.999999)
 scale = Vector2(0.6171875, 0.617187)
 sprite_frames = SubResource("SpriteFrames_qe4o5")
-animation = &"caught"
-frame_progress = 0.8747287
+animation = &"working"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(4, 4)
@@ -128,7 +127,14 @@ wait_time = 2.0
 wait_time = 0.5
 one_shot = true
 
+[node name="PickaxeSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("19_8st31")
+volume_db = -4.0
+bus = &"SFX"
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_sprite_frame_changed"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="ConstructionTimer" to="." method="_on_construction_timer_timeout"]
 [connection signal="timeout" from="GraceTimer" to="." method="_on_grace_timer_timeout"]
