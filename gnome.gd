@@ -15,6 +15,7 @@ var current_destination: Vector2
 func start_construction():
 	state = States.CONSTRUCTING
 	$ConstructionTimer.start()
+	$AnimatedSprite2D.play("working")
 
 func set_current_block(block: CraftableBlock):
 	state = States.WALKING
@@ -24,17 +25,19 @@ func set_current_block(block: CraftableBlock):
 func set_destination(destination: Vector2):
 	rotate(position.direction_to(destination).angle())
 	current_destination = destination
+	$AnimatedSprite2D.play("walk")
 
 func flee():
 	if state == States.FLEEING:
 		return
 	$GraceTimer.start()
+	$AnimatedSprite2D.play("caught")
 
 func undo_flee():
 	$GraceTimer.stop()
 
 func _ready():
-	pass
+	$AnimatedSprite2D.play("walk")
 
 func _process(delta: float):
 	if state in [States.WALKING, States.FLEEING]:

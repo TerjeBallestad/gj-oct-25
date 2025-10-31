@@ -8,6 +8,9 @@ extends Node
 @onready var start_timer = $StartTimer
 @onready var gnome_timer = $GnomeSpawnTimer
 @onready var hud = %HUD
+@onready var musicAudioStreamBG = $"AudioStreamPlayer-BGmusic"
+
+
 
 enum States { TITLE, LEVEL_SELECT, INSTRUCTIONS, GAME, GAME_STARTING, GAME_OVER, GAME_WIN }
 var state: States = States.TITLE
@@ -22,6 +25,7 @@ var blocks: Array[CraftableBlock] = []
 var all_blocks: Dictionary[CraftableBlock, Vector2] = {}
 var finished_blocks: Array[CraftableBlock] = []
 
+var backgroundmusicOn = true
 func set_state(new_state: States):
 	match new_state:
 		States.TITLE:
@@ -62,6 +66,7 @@ func set_state(new_state: States):
 			for gnome in gnomes:
 				gnome.queue_free()
 			gnomes.clear()
+			backgroundmusicOn = false
 			#_clear_game_objects()
 	state = new_state
 
@@ -72,6 +77,7 @@ func _ready():
 func _process(_delta: float):
 	if state == States.GAME && Input.is_action_pressed("finish_game"):
 		set_state(States.GAME_WIN)
+	update_music_stats()
 
 func _on_start_timer_timeout():
 	set_state(States.GAME)
@@ -170,6 +176,13 @@ func _on_hud_start_game(level: int):
 	%GameOverMenu.hide()
 	%ScoreCard.hide()
 	set_state(States.GAME_STARTING)
+
+func update_music_stats():
+	if backgroundmusicOn:
+		if !musicAudioStreamBG.playing:
+			musicAudioStreamBG.play()
+	else:
+		musicAudioStreamBG.stop()	
 
 func _on_hud_retry_level():
 	_on_hud_start_game(current_level)
