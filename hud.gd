@@ -46,7 +46,6 @@ func show_score(points: float, available_points: float, gnomes: int):
 	tween.tween_method(set_label_text.bind(%TotalScore), 0, total, 1.0)
 	tween.tween_property(%VictimFace, "modulate", Color.WHITE, 1.0)
 	#%TotalScore.text = "%d" % total
-	$"Control/ScoreCard/AudioStreamPlayer-mainmenumusic2D".play()
 
 func set_label_text(number: float, label: Label):
 	label.text = "%d" % number
